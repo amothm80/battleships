@@ -19,9 +19,13 @@ describe('Battleship', () => {
 
 describe('Battleboard', () => {
   const bb = new Battleboard();
+  const bs2p1 = new Battelship(2);
   const bs3p1 = new Battelship(3);
+  const bs4p1 = new Battelship(4);
   const bs5p1 = new Battelship(5);
+  const bs2p2 = new Battelship(2);
   const bs3p2 = new Battelship(3);
+  const bs4p2 = new Battelship(4);
   const bs5p2 = new Battelship(5);
 
   test('validate ship length 3', () => {
@@ -68,7 +72,7 @@ describe('Battleboard', () => {
         [null, null, null, null, null, bs5p1, null, null, null, null],
         [null, null, null, null, null, bs5p1, null, null, null, null],
         [null, null, null, null, null, bs5p1, null, null, null, null],
-        [null, null, null, null, null, bs3p1, null, null, null, null],
+        [null, null, null, null, null, bs5p1, null, null, null, null],
       ],
     });
   });
@@ -127,19 +131,30 @@ describe('Battleboard', () => {
     });
   });
 
+  test('add the rest of ships',()=>{
+    bb.addShipToBoard(bs2p1, [6, 1], 'V', 1)
+    bb.addShipToBoard(bs4p1, [2, 4], 'H', 1)
+    bb.addShipToBoard(bs2p2, [0, 0], 'V', 2)
+    bb.addShipToBoard(bs4p2, [3, 2], 'H', 2)
+  })
+
+  test('start game',()=>{
+    expect(bb.startGame()).toBe('Game Started')
+  })
+
   test('get player 1 board', () => {
     expect(bb.getBattleboard(1)).toEqual(
        [
         [bs3p1, bs3p1, bs3p1, null, null, null, null, null, null, null],
         [null, null, null, null, null, null, null, null, null, null],
+        [null, null, null, null, bs4p1, bs4p1, bs4p1, bs4p1, null, null],
         [null, null, null, null, null, null, null, null, null, null],
         [null, null, null, null, null, null, null, null, null, null],
-        [null, null, null, null, null, null, null, null, null, null],
+        [null, null, null, null, null, bs5p1, null, null, null, null],
+        [null, bs2p1, null, null, null, bs5p1, null, null, null, null],
+        [null, bs2p1, null, null, null, bs5p1, null, null, null, null],
         [null, null, null, null, null, bs5p1, null, null, null, null],
         [null, null, null, null, null, bs5p1, null, null, null, null],
-        [null, null, null, null, null, bs5p1, null, null, null, null],
-        [null, null, null, null, null, bs5p1, null, null, null, null],
-        [null, null, null, null, null, bs3p1, null, null, null, null],
       ],
     );
   });
@@ -147,10 +162,10 @@ describe('Battleboard', () => {
   test('get player 2 board', () => {
     expect(bb.getBattleboard(2)).toEqual(
        [
+        [bs2p2, null, null, null, null, null, null, null, null, null],
+        [bs2p2, null, null, null, bs3p2, bs3p2, bs3p2, null, null, null],
         [null, null, null, null, null, null, null, null, null, null],
-        [null, null, null, null, bs3p2, bs3p2, bs3p2, null, null, null],
-        [null, null, null, null, null, null, null, null, null, null],
-        [null, null, null, null, null, null, null, null, null, null],
+        [null, null, bs4p2, bs4p2, bs4p2, bs4p2, null, null, null, null],
         [null, null, null, null, null, null, null, null, null, null],
         [null, null, bs5p2, null, null, null, null, null, null, null],
         [null, null, bs5p2, null, null, null, null, null, null, null],
@@ -161,40 +176,84 @@ describe('Battleboard', () => {
     );
   });
 
+
+
   test('receive attack player 1 location 0,1', () => {
     expect(bb.receiveAttack(1, [0, 1])).toEqual({
       player: 1,
-      player_ships: [bs3p1,bs5p1],
+      player_ships: [bs2p1,bs3p1,bs4p1,bs5p1],
       player_board: [
         [bs3p1, 'H', bs3p1, null, null, null, null, null, null, null],
         [null, null, null, null, null, null, null, null, null, null],
+        [null, null, null, null, bs4p1, bs4p1, bs4p1, bs4p1, null, null],
         [null, null, null, null, null, null, null, null, null, null],
         [null, null, null, null, null, null, null, null, null, null],
-        [null, null, null, null, null, null, null, null, null, null],
+        [null, null, null, null, null, bs5p1, null, null, null, null],
+        [null, bs2p1, null, null, null, bs5p1, null, null, null, null],
+        [null, bs2p1, null, null, null, bs5p1, null, null, null, null],
         [null, null, null, null, null, bs5p1, null, null, null, null],
         [null, null, null, null, null, bs5p1, null, null, null, null],
-        [null, null, null, null, null, bs5p1, null, null, null, null],
-        [null, null, null, null, null, bs5p1, null, null, null, null],
-        [null, null, null, null, null, bs3p1, null, null, null, null],
       ],
     });
   });
   test('receive attack player 1 location 1,1', () => {
     expect(bb.receiveAttack(1, [1, 1])).toEqual({
       player: 1,
-      player_ships: [bs3p1,bs5p1],
+      player_ships: [bs2p1,bs3p1,bs4p1,bs5p1],
       player_board: [
         [bs3p1, 'H', bs3p1, null, null, null, null, null, null, null],
         [null, 'M', null, null, null, null, null, null, null, null],
+        [null, null, null, null, bs4p1, bs4p1, bs4p1, bs4p1, null, null],
         [null, null, null, null, null, null, null, null, null, null],
         [null, null, null, null, null, null, null, null, null, null],
-        [null, null, null, null, null, null, null, null, null, null],
+        [null, null, null, null, null, bs5p1, null, null, null, null],
+        [null, bs2p1, null, null, null, bs5p1, null, null, null, null],
+        [null, bs2p1, null, null, null, bs5p1, null, null, null, null],
         [null, null, null, null, null, bs5p1, null, null, null, null],
         [null, null, null, null, null, bs5p1, null, null, null, null],
-        [null, null, null, null, null, bs5p1, null, null, null, null],
-        [null, null, null, null, null, bs5p1, null, null, null, null],
-        [null, null, null, null, null, bs3p1, null, null, null, null],
       ],
     });
   });
+
+  test('receive attack player 1 location 1,1 on location already hit', () => {
+    expect(bb.receiveAttack(1, [1, 1])).toEqual('Location Already Hit');
+  });
+  test('sink player 1 ships',()=>{
+    bb.receiveAttack(1,[0,0])
+    bb.receiveAttack(1,[0,2])
+    bb.receiveAttack(1,[2,4])
+    bb.receiveAttack(1,[2,5])
+    bb.receiveAttack(1,[2,6])
+    bb.receiveAttack(1,[2,7])
+    bb.receiveAttack(1,[2,4])
+    bb.receiveAttack(1,[2,5])
+    bb.receiveAttack(1,[6,1])
+    bb.receiveAttack(1,[7,1])
+    bb.receiveAttack(1,[5,5])
+    bb.receiveAttack(1,[6,5])
+    bb.receiveAttack(1,[7,5])
+    bb.receiveAttack(1,[8,5])
+    bb.receiveAttack(1,[9,5])
+  })
+
+  test('get player 1 board after sinking', () => {
+    expect(bb.getBattleboard(1)).toEqual(
+       [
+        ['H', 'H', 'H', null, null, null, null, null, null, null],
+        [null, 'M', null, null, null, null, null, null, null, null],
+        [null, null, null, null, 'H', 'H', 'H', 'H', null, null],
+        [null, null, null, null, null, null, null, null, null, null],
+        [null, null, null, null, null, null, null, null, null, null],
+        [null, null, null, null, null, 'H', null, null, null, null],
+        [null, 'H', null, null, null, 'H', null, null, null, null],
+        [null, 'H', null, null, null, 'H', null, null, null, null],
+        [null, null, null, null, null, 'H', null, null, null, null],
+        [null, null, null, null, null, 'H', null, null, null, null],
+      ],
+    );
+  });
+
+  test('check player 2 winning',()=>{
+    expect(bb.checkWinner()).toBe('Player 2 Wins')
+  })
 });

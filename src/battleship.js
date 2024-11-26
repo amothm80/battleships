@@ -40,7 +40,7 @@ export class Battleboard {
   }
 
   startGame() {
-    if (this.shipsP1.length == 4 && this.shipsP2 == 4) {
+    if (this.shipsP1.length == 4 && this.shipsP2.length == 4) {
       this.gameOn = true;
       return 'Game Started';
     }else{
@@ -81,13 +81,20 @@ export class Battleboard {
   receiveAttack(player, location) {
     if (this.gameOn) {
       const playerBoard = this.getBattleboard(player);
-      if (playerBoard[location[0]][location[1]] != null) {
+      const boardCell = playerBoard[location[0]][location[1]];
+      if (  boardCell!= null) {
+        if (playerBoard[location[0]][location[1]] == 'M'||
+          playerBoard[location[0]][location[1]] == 'H'  ){
+            return "Location Already Hit"
+          }
         playerBoard[location[0]][location[1]].hit();
         playerBoard[location[0]][location[1]] = 'H';
       } else {
         playerBoard[location[0]][location[1]] = 'M';
       }
       return this.getPlayerDetails(player);
+    }else{
+      return "Game Not Running"
     }
   }
 
@@ -116,6 +123,8 @@ export class Battleboard {
       }
       return this.getPlayerDetails(player);
       // return this.getBattleboard(player)
+    }else{
+      return "Game Is Running"
     }
   }
 
@@ -150,12 +159,14 @@ export class Battleboard {
       });
       if (shipsP1sunk.length == 0) {
         this.gameOn = false;
-        return 'Player 1 Wins';
+        return 'Player 2 Wins';
       }
       if (shipsP2sunk.length == 0) {
         this.gameOn = false;
-        return 'Player 2 Wins';
+        return 'Player 1 Wins';
       }
+    }else{
+      return 'Game Not Running'
     }
   }
 }
