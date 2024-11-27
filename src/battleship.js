@@ -28,27 +28,14 @@ export class Battelship {
   }
 }
 
+
+
 export class Battleboard {
   constructor() {
     // this.boardP1 = [];
-    this.shipsP1 = [];
-    this.boardP1 = this.createBoard();
+    this.ships = [];
+    this.board = this.createBoard();
     // this.boardP2 = [];
-    this.shipsP2 = [];
-    this.boardP2 = this.createBoard();
-    this.gameOn = false;
-  }
-
-  startGame() {
-    if (this.shipsP1.length == 4 && this.shipsP2.length == 4) {
-      this.gameOn = true;
-      return 'Game Started';
-    }else{
-      return "4 ships for each player has to be on board."
-    }
-  }
-  getGameStatus(){
-    return this.gameOn;
   }
 
   createBoard() {
@@ -78,95 +65,101 @@ export class Battleboard {
     }
   }
 
-  receiveAttack(player, location) {
-    if (this.gameOn) {
-      const playerBoard = this.getBattleboard(player);
+  receiveAttack(location) {
+      const playerBoard = this.getBattleboard();
       const boardCell = playerBoard[location[0]][location[1]];
-      if (  boardCell!= null) {
-        if (playerBoard[location[0]][location[1]] == 'M'||
-          playerBoard[location[0]][location[1]] == 'H'  ){
-            return "Location Already Hit"
-          }
+      if (boardCell != null) {
+        if (
+          playerBoard[location[0]][location[1]] == 'M' ||
+          playerBoard[location[0]][location[1]] == 'H'
+        ) {
+          return 'Location Already Hit';
+        }
         playerBoard[location[0]][location[1]].hit();
         playerBoard[location[0]][location[1]] = 'H';
       } else {
         playerBoard[location[0]][location[1]] = 'M';
       }
-      return this.getPlayerDetails(player);
-    }else{
-      return "Game Not Running"
-    }
+      return this.getBattleboard();
   }
 
-  addShipToPlayer(ship, player) {
-    if (player == 1) {
-      this.shipsP1.push(ship);
-      return this.shipsP1;
-    } else if (player == 2) {
-      this.shipsP2.push(ship);
-      return this.shipsP2;
-    }
+  addShipToList(ship) {
+      this.ships.push(ship);
   }
 
-  addShipToBoard(ship, location, orientation, player) {
-    if (!this.gameOn) {
-      const playerBoard = player == 1 ? this.boardP1 : this.boardP2;
+  addShipToBoard(ship, location, orientation) {
       if (this.validateLocation(ship.getlength(), location, orientation)) {
         for (let i = 0; i < ship.getlength(); i++) {
           if (orientation == 'H') {
-            playerBoard[location[0]][location[1] + i] = ship;
+            this.board[location[0]][location[1] + i] = ship;
           } else if (orientation == 'V') {
-            playerBoard[location[0] + i][location[1]] = ship;
+            this.board[location[0] + i][location[1]] = ship;
           }
         }
-        this.addShipToPlayer(ship, player);
+        this.addShipToList(ship);
       }
-      return this.getPlayerDetails(player);
+      return this.getBattleboard();
       // return this.getBattleboard(player)
-    }else{
-      return "Game Is Running"
-    }
   }
 
-  getBattleboard(player) {
-    if (player == 1) {
-      return this.boardP1;
-    } else if (player == 2) {
-      return this.boardP2;
-    }
+  getBattleboard() {
+    return this.board;
   }
-  getShips(player) {
-    if (player == 1) {
-      return this.shipsP1;
-    } else if (player == 2) {
-      return this.shipsP2;
-    }
+  getShips() {
+    return this.ships;
   }
-  getPlayerDetails(player) {
+
+}
+
+export class Player {
+  constructor(name) {
+    this.name = name
+    this.board = new Battleboard();
+  }
+
+  getPlayerDetails() {
     return {
-      player: player,
-      player_ships: this.getShips(player),
-      player_board: this.getBattleboard(player),
+      player_name :this.name,
+      player_ships: this.board.getShips(),
+      player_board: this.board.getBattleboard(),
     };
   }
-  checkWinner() {
-    if (this.gameOn) {
-      const shipsP1sunk = this.getShips(1).filter((ship) => {
-        !ship.isSunk();
-      });
-      const shipsP2sunk = this.getShips(2).filter((ship) => {
-        !ship.isSunk();
-      });
-      if (shipsP1sunk.length == 0) {
-        this.gameOn = false;
-        return 'Player 2 Wins';
-      }
-      if (shipsP2sunk.length == 0) {
-        this.gameOn = false;
-        return 'Player 1 Wins';
-      }
-    }else{
-      return 'Game Not Running'
-    }
+
+  getPlayerBoard(){
+    return this.board
   }
 }
+
+const game = () => {
+  // startGame() {
+  //   if (this.shipsP1.length == 4 && this.shipsP2.length == 4) {
+  //     this.gameOn = true;
+  //     return 'Game Started';
+  //   }else{
+  //     return "4 ships for each player has to be on board."
+  //   }
+  // }
+  // getGameStatus(){
+  //   return this.gameOn;
+  // }
+  // checkWinner() {
+  //   if (this.gameOn) {
+  //     const shipsP1sunk = this.getShips(1).filter((ship) => {
+  //       !ship.isSunk();
+  //     });
+  //     const shipsP2sunk = this.getShips(2).filter((ship) => {
+  //       !ship.isSunk();
+  //     });
+  //     if (shipsP1sunk.length == 0) {
+  //       this.gameOn = false;
+  //       return 'Player 2 Wins';
+  //     }
+  //     if (shipsP2sunk.length == 0) {
+  //       this.gameOn = false;
+  //       return 'Player 1 Wins';
+  //     }
+  //   } else {
+  //     return 'Game Not Running';
+  //   }
+  // }
+};
