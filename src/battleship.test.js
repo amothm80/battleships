@@ -1,7 +1,7 @@
-import { Battelship, Battleboard,Player } from './battleship';
+import { Battleship,Player } from './battleship';
 
 describe('Battleship', () => {
-  const bs = new Battelship(3);
+  const bs = new Battleship(3);
 
   test('first hit', () => {
     expect(bs.hit()).toBe('HIT!');
@@ -20,14 +20,14 @@ describe('Battleship', () => {
 describe('Battleboard', () => {
   const p1 = new Player('player 1')
   // const bb = new Battleboard();
-  const bs2p1 = new Battelship(2);
-  const bs3p1 = new Battelship(3);
-  const bs4p1 = new Battelship(4);
-  const bs5p1 = new Battelship(5);
-  // const bs2p2 = new Battelship(2);
-  // const bs3p2 = new Battelship(3);
-  // const bs4p2 = new Battelship(4);
-  // const bs5p2 = new Battelship(5);
+  const bs2p1 = new Battleship(2);
+  const bs3p1 = new Battleship(3);
+  const bs4p1 = new Battleship(4);
+  const bs5p1 = new Battleship(5);
+  // const bs2p2 = new Battleship(2);
+  // const bs3p2 = new Battleship(3);
+  // const bs4p2 = new Battleship(4);
+  // const bs5p2 = new Battleship(5);
 
   test('validate ship length 3', () => {
     expect(p1.board.validateLocation(3, [0, 0], 'H')).toBe(true);
@@ -269,7 +269,7 @@ describe('Battleboard', () => {
   });
 
   test("all player 1 ships sunk",()=>{
-    expect(p1.allShipsSunk()).toBe(true)
+    expect(p1.board.allShipsSunk()).toBe(true)
   })
 
   // test('check player 2 winning',()=>{

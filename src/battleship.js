@@ -1,4 +1,10 @@
-export class Battelship {
+function getRandomIntInclusive(min, max) {
+  const minCeiled = Math.ceil(min);
+  const maxFloored = Math.floor(max);
+  return Math.floor(Math.random() * (maxFloored - minCeiled + 1) + minCeiled); // The maximum is inclusive and the minimum is inclusive
+}
+
+export class Battleship {
   #length = 0;
   #hits = 0;
   #isSunk = false;
@@ -52,12 +58,22 @@ export class Battleboard {
       if (location[1] + length - 1 > 9) {
         return false;
       } else {
+        for (let i = 0; i < length; i++) {
+          if (this.board[location[0]][location[1] + i] != null) {
+            return false;
+          }
+        }
         return true;
       }
     } else if (orientation == 'V') {
       if (location[0] + length - 1 > 9) {
         return false;
       } else {
+        for (let i = 0; i < length; i++) {
+          if (this.board[location[0] + i][location[1]] != null) {
+            return false;
+          }
+        }
         return true;
       }
     }
@@ -100,11 +116,42 @@ export class Battleboard {
     // return this.getBattleboard(player)
   }
 
+  addShipsToBoardRand() {
+    let shiplist = [
+      new Battleship(2),
+      new Battleship(3),
+      new Battleship(4),
+      new Battleship(5),
+    ];
+
+    let orientationlist = ['H', 'V'];
+
+    shiplist.forEach((ship) => {
+      // while (
+      //   this.ships.length != shiplist.length
+      // ) {
+      this.addShipToBoard(
+        ship,
+        [getRandomIntInclusive(0, 9), getRandomIntInclusive(0, 9)],
+        orientationlist[getRandomIntInclusive(0, 1)]
+      );
+      // }
+    });
+  }
+
   getBattleboard() {
     return this.board;
   }
   getShips() {
     return this.ships;
+  }
+
+  allShipsSunk() {
+    return (
+      this.getShips().filter((ship) => {
+        !ship.isSunk();
+      }).length == 0
+    );
   }
 }
 
@@ -124,14 +171,6 @@ export class Player {
 
   getPlayerBoard() {
     return this.board;
-  }
-
-  allShipsSunk() {
-    return (
-      this.board.getShips().filter((ship) => {
-        !ship.isSunk();
-      }).length == 0
-    );
   }
 }
 
