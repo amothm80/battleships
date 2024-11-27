@@ -62,22 +62,22 @@ describe('Battleboard', () => {
   );
   });
   test('add ship length 5 location 7,2V player 1 invalid location', () => {
-    expect(p1.board.addShipToBoard(bs5p1, [7, 2], 'V')).toEqual(
+    expect(p1.board.addShipToBoard(bs5p1, [7, 2], 'V')).toEqual(false
       // {
       // player: 2,
       // player_ships: [bs3p2],
       // player_board: 
-      [[bs3p1, bs3p1, bs3p1, null, null, null, null, null, null, null],
-      [null, null, null, null, null, null, null, null, null, null],
-      [null, null, null, null, null, null, null, null, null, null],
-      [null, null, null, null, null, null, null, null, null, null],
-      [null, null, null, null, null, null, null, null, null, null],
-      [null, null, null, null, null, null, null, null, null, null],
-      [null, null, null, null, null, null, null, null, null, null],
-      [null, null, null, null, null, null, null, null, null, null],
-      [null, null, null, null, null, null, null, null, null, null],
-      [null, null, null, null, null, null, null, null, null, null],
-    ],
+    //   [[bs3p1, bs3p1, bs3p1, null, null, null, null, null, null, null],
+    //   [null, null, null, null, null, null, null, null, null, null],
+    //   [null, null, null, null, null, null, null, null, null, null],
+    //   [null, null, null, null, null, null, null, null, null, null],
+    //   [null, null, null, null, null, null, null, null, null, null],
+    //   [null, null, null, null, null, null, null, null, null, null],
+    //   [null, null, null, null, null, null, null, null, null, null],
+    //   [null, null, null, null, null, null, null, null, null, null],
+    //   [null, null, null, null, null, null, null, null, null, null],
+    //   [null, null, null, null, null, null, null, null, null, null],
+    // ],
     // }
   );
   });
