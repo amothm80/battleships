@@ -28,8 +28,6 @@ export class Battelship {
   }
 }
 
-
-
 export class Battleboard {
   constructor() {
     // this.boardP1 = [];
@@ -66,40 +64,40 @@ export class Battleboard {
   }
 
   receiveAttack(location) {
-      const playerBoard = this.getBattleboard();
-      const boardCell = playerBoard[location[0]][location[1]];
-      if (boardCell != null) {
-        if (
-          playerBoard[location[0]][location[1]] == 'M' ||
-          playerBoard[location[0]][location[1]] == 'H'
-        ) {
-          return 'Location Already Hit';
-        }
-        playerBoard[location[0]][location[1]].hit();
-        playerBoard[location[0]][location[1]] = 'H';
-      } else {
-        playerBoard[location[0]][location[1]] = 'M';
+    const playerBoard = this.getBattleboard();
+    const boardCell = playerBoard[location[0]][location[1]];
+    if (boardCell != null) {
+      if (
+        playerBoard[location[0]][location[1]] == 'M' ||
+        playerBoard[location[0]][location[1]] == 'H'
+      ) {
+        return 'Location Already Hit';
       }
-      return this.getBattleboard();
+      playerBoard[location[0]][location[1]].hit();
+      playerBoard[location[0]][location[1]] = 'H';
+    } else {
+      playerBoard[location[0]][location[1]] = 'M';
+    }
+    return this.getBattleboard();
   }
 
   addShipToList(ship) {
-      this.ships.push(ship);
+    this.ships.push(ship);
   }
 
   addShipToBoard(ship, location, orientation) {
-      if (this.validateLocation(ship.getlength(), location, orientation)) {
-        for (let i = 0; i < ship.getlength(); i++) {
-          if (orientation == 'H') {
-            this.board[location[0]][location[1] + i] = ship;
-          } else if (orientation == 'V') {
-            this.board[location[0] + i][location[1]] = ship;
-          }
+    if (this.validateLocation(ship.getlength(), location, orientation)) {
+      for (let i = 0; i < ship.getlength(); i++) {
+        if (orientation == 'H') {
+          this.board[location[0]][location[1] + i] = ship;
+        } else if (orientation == 'V') {
+          this.board[location[0] + i][location[1]] = ship;
         }
-        this.addShipToList(ship);
       }
-      return this.getBattleboard();
-      // return this.getBattleboard(player)
+      this.addShipToList(ship);
+    }
+    return this.getBattleboard();
+    // return this.getBattleboard(player)
   }
 
   getBattleboard() {
@@ -108,25 +106,32 @@ export class Battleboard {
   getShips() {
     return this.ships;
   }
-
 }
 
 export class Player {
   constructor(name) {
-    this.name = name
+    this.name = name;
     this.board = new Battleboard();
   }
 
   getPlayerDetails() {
     return {
-      player_name :this.name,
+      player_name: this.name,
       player_ships: this.board.getShips(),
       player_board: this.board.getBattleboard(),
     };
   }
 
-  getPlayerBoard(){
-    return this.board
+  getPlayerBoard() {
+    return this.board;
+  }
+
+  allShipsSunk() {
+    return (
+      this.board.getShips().filter((ship) => {
+        !ship.isSunk();
+      }).length == 0
+    );
   }
 }
 

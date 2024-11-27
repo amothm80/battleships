@@ -268,6 +268,10 @@ describe('Battleboard', () => {
     );
   });
 
+  test("all player 1 ships sunk",()=>{
+    expect(p1.allShipsSunk()).toBe(true)
+  })
+
   // test('check player 2 winning',()=>{
   //   expect(bb.checkWinner()).toBe('Player 2 Wins')
   // })
