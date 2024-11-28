@@ -150,9 +150,7 @@ export class Battleboard {
 
   allShipsSunk() {
     return (
-      this.getShips().filter((ship) => {
-        !ship.isSunk();
-      }).length == 0
+      this.getShips().filter((ship) => !ship.isSunk()).length == 0
     );
   }
 }

@@ -1,7 +1,8 @@
 import { Game } from './game';
-import './styles.css'
+import { addEvents } from './events';
+import './styles.css';
 
-function renderGameBoards(game) {
+export function renderGameBoards(game) {
   // for (let j = 1; j <= sideSquares; j++) {
   // for (let i = 1; i <= sideSquares; i++) {
   //   let griddiv = document.createElement("div");
@@ -13,6 +14,7 @@ function renderGameBoards(game) {
   //   griddiv.style.width = squareSize + "px";
   //   griddiv.addEventListener("mouseover", () => {
   const p1boardEl = document.querySelector('#gameboard-1');
+  p1boardEl.innerHTML = ''
   let p1board = game.player1.board.getBattleboard();
   for (let i = 0; i <= 9; i++) {
     for (let j = 0; j <= 9; j++) {
@@ -33,16 +35,17 @@ function renderGameBoards(game) {
             griddiv.innerHTML = 'S';
         }
       }
-      p1boardEl.appendChild(griddiv)
+      p1boardEl.appendChild(griddiv);
     }
   }
 
   const p2boardEl = document.querySelector('#gameboard-2');
+  p2boardEl.innerHTML = ''
   let p2board = game.player2.board.getBattleboard();
   for (let i = 0; i <= 9; i++) {
     for (let j = 0; j <= 9; j++) {
       const griddiv = document.createElement('div');
-      griddiv.id = 'p1' + '-' + i + '-' + j;
+      griddiv.id = 'p2' + '-' + i + '-' + j;
       griddiv.className = 'gameboard-cells';
       griddiv.style.height = '20px';
       griddiv.style.width = '20px';
@@ -58,14 +61,15 @@ function renderGameBoards(game) {
             griddiv.innerHTML = 'S';
         }
       }
-      p1boardEl.appendChild(griddiv)
+      p2boardEl.appendChild(griddiv);
     }
   }
 }
 
 (() => {
   const game = Game('Player 1');
-  game.player1.board.addShipsToBoardRand()
-  game.player2.board.addShipsToBoardRand()
+  game.player1.board.addShipsToBoardRand();
+  game.player2.board.addShipsToBoardRand();
+  addEvents(game);
   renderGameBoards(game);
 })();
