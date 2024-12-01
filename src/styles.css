@@ -1,10 +1,13 @@
-* {
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+/* * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-}
+} */
 
-#gameboard-1, #gameboard-2{
+/* #gameboard-1, #gameboard-2{
   display: grid;
   grid-template-columns: repeat(10,20px);
   grid-template-rows: repeat(10,20px);
@@ -13,4 +16,4 @@
 
 .gameboard-cells{
   border: 1px solid black;
-}
+} */

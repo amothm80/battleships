@@ -1,25 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="w-full">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Battleships</title>
   </head>
-  <body>
-    <div><h1>Battleships</h1></div>
-    <div id="gameboards">
-      <div>
-        <div><h2>Player 1</h2></div>
-        <div id="gameboard-1"></div>
-      </div>
-      <div>
-        <div><h2>player2</h2></div>
-        <div id="gameboard-2"></div>
-      </div>
-    </div>
+  <body class="flex flex-col px-44 align-middle justify-center">
+    <div class="w-6/12"><h1>Battleships</h1></div>
     <div id="controls">
       <button id="start" type="button">Start Game</button>
       <button id="end" type="button">End Game</button>
     </div>
+    <div id="gameboards" class="flex flex-col md:flex-row">
+      <div>
+        <div><h2>Player 1</h2></div>
+        <div id="gameboard-1" class="grid grid-cols-1020 grid-rows-1020"></div>
+      </div>
+      <div>
+        <div><h2>player2</h2></div>
+        <div id="gameboard-2" class="grid grid-cols-1020 grid-rows-1020"></div>
+      </div>
+    </div>
+ 
   </body>
 </html>
