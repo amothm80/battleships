@@ -1,26 +1,55 @@
 <!DOCTYPE html>
-<html lang="en" class="w-full">
+<html lang="en" class="flex justify-center bg-sky-100">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Battleships</title>
   </head>
-  <body class="flex flex-col px-44 align-middle justify-center">
-    <div class="w-6/12"><h1>Battleships</h1></div>
-    <div id="controls">
-      <button id="start" type="button">Start Game</button>
-      <button id="end" type="button">End Game</button>
+  <body class="flex flex-col align-middle justify-center gap-5 py-5 px-5">
+    <div
+      class="rounded-md drop-shadow-md flex flex-row justify-center bg-white py-5 px-5"
+    >
+      <h1>Battleships</h1>
     </div>
-    <div id="gameboards" class="flex flex-col md:flex-row">
+    <div
+      id="controls"
+      class="rounded-md drop-shadow-md flex flex-row justify-around bg-white py-5 px-5 gap-10"
+    >
+      <button
+        id="start"
+        type="button"
+        class=" text-white outline outline-1 opacity-100 outline-blue-800 bg-blue-700 rounded-md text-sm font-medium px-5 py-2.5
+        hover:opacity-85 hover:-translate-x-0.5 hover:-translate-y-0.5
+        transition">
+        
+        Start Game
+      </button>
+      <button
+        id="end"
+        type="button"
+        class=" text-white outline outline-1 opacity-100 outline-blue-800 bg-blue-700 rounded-md text-sm font-medium px-5 py-2.5
+        hover:opacity-85 hover:-translate-x-0.5 hover:-translate-y-0.5
+        transition">
+        End Game
+      </button>
+    </div>
+    <!-- <div id="gameboards" class="flex flex-col md:flex-row"> -->
+    <div
+      id="gameboards"
+      class="rounded-md drop-shadow-md bg-white gap-10 columns-1 md:columns-2 py-5 px-5"
+    >
       <div>
-        <div><h2>Player 1</h2></div>
-        <div id="gameboard-1" class="grid grid-cols-1020 grid-rows-1020"></div>
+        <div class="flex flex-row justify-center">
+          <h2 class="py-2">Player 1</h2>
+        </div>
+        <div id="gameboard-1" class="grid grid-cols-1020 grid-rows-1020 gap-1"></div>
       </div>
       <div>
-        <div><h2>player2</h2></div>
-        <div id="gameboard-2" class="grid grid-cols-1020 grid-rows-1020"></div>
+        <div class="flex flex-row justify-center">
+          <h2 class="py-2">player2</h2>
+        </div>
+        <div id="gameboard-2" class="grid grid-cols-1020 grid-rows-1020 gap-1"></div>
       </div>
     </div>
- 
   </body>
 </html>

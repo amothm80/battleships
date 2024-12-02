@@ -20,7 +20,7 @@ export function renderGameBoards(game) {
     for (let j = 0; j <= 9; j++) {
       const griddiv = document.createElement('div');
       griddiv.id = 'p1' + '-' + i + '-' + j;
-      griddiv.className = 'gameboard-cells';
+      griddiv.className = 'gameboard-cells outline outline-1 outline-slate-200 bg-slate-300 opacity-50 rounded-sm hover:opacity-100 hover:-translate-x-0.5 hover:-translate-y-0.5 transition';
       griddiv.style.height = '20px';
       griddiv.style.width = '20px';
       if (p1board[i][j] != null) {
@@ -46,7 +46,7 @@ export function renderGameBoards(game) {
     for (let j = 0; j <= 9; j++) {
       const griddiv = document.createElement('div');
       griddiv.id = 'p2' + '-' + i + '-' + j;
-      griddiv.className = 'gameboard-cells';
+      griddiv.className = 'gameboard-cells outline outline-1 outline-slate-200 bg-slate-300 opacity-50 rounded-sm hover:opacity-100 hover:-translate-x-0.5 hover:-translate-y-0.5 transition';
       griddiv.style.height = '20px';
       griddiv.style.width = '20px';
       if (p2board[i][j] != null) {
